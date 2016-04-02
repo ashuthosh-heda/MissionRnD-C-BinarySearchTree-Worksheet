@@ -22,14 +22,61 @@ struct node{
 	struct node *right;
 };
 
+int inorder_helper(struct node *root, int *arr, int ind){
+	if (root->left != NULL)
+		ind = inorder_helper(root->left, arr, ind);
+
+	arr[ind++] = root->data;
+
+	if(root->right != NULL)
+		ind = inorder_helper(root->right, arr, ind);
+
+	return ind;
+}
 
 void inorder(struct node *root, int *arr){
-	
+	if (root == NULL || arr == NULL)
+		return;
+
+	inorder_helper(root, arr, 0);
 }
+
+int preorder_helper(struct node *root, int *arr, int ind){
+	
+	arr[ind++] = root->data;
+
+	if(root->left != NULL)
+		ind = preorder_helper(root->left, arr, ind);
+
+	if (root->right != NULL)
+		ind = preorder_helper(root->right, arr, ind);
+
+	return ind;
+}
+
 void preorder(struct node *root, int *arr){
-	
+	if (root == NULL || arr == NULL)
+		return;
+
+	preorder_helper(root, arr, 0);
 }
+
+int postorder_helper(struct node *root, int *arr, int ind){
+	if (root->left != NULL)
+		ind = postorder_helper(root->left, arr, ind);
+
+	if (root->right != NULL)
+		ind = postorder_helper(root->right, arr, ind);
+
+	arr[ind++] = root->data;
+
+	return ind;
+}
+
 void postorder(struct node *root, int *arr){
-	
+	if (root == NULL || arr == NULL)
+		return;
+
+	postorder_helper(root, arr, 0);
 }
 
